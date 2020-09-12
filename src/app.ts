@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import Database from './config/database'
-import UserController from './controllers/UserController'
+import Routes from './config/routes'
 
 class App {
   public express: express.Application
@@ -14,7 +14,6 @@ class App {
   }
 
   private middlewares (): void {
-    this.express.use(express.json())
     this.express.use(cors())
   }
 
@@ -24,9 +23,7 @@ class App {
   }
 
   private routes (): void {
-    const router = this.express
-    router.post('/users', UserController.create);
-    router.get('/users/:id', UserController.show);
+    this.express.use('/heimdall', Routes.load())
   }
 }
 
