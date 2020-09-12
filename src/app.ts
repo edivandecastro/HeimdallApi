@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import Database from './config/database'
+import UserController from './controllers/UserController'
 
 class App {
   public express: express.Application
@@ -23,9 +24,9 @@ class App {
   }
 
   private routes (): void {
-    this.express.get('/', (req, res) => {
-      return res.send('Hello World');
-    })
+    const router = this.express
+    router.post('/users', UserController.create);
+    router.get('/users/:id', UserController.show);
   }
 }
 
