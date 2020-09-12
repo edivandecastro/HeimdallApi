@@ -1,0 +1,20 @@
+{
+  "name": "HeimdallApi",
+  "version": "1.0.0",
+  "description": "Módulo de permissão e e autorização de usuários.",
+  "main": "app.js",
+  "repository": "https://github.com/edivandecastro/HeimdallApi",
+  "author": "Edivan de Castro",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "ts-node-dev": "^1.0.0-pre.62",
+    "typescript": "^4.0.2"
+  },
+  "scripts": {
+    "dev:server": "ts-node-dev --transpile-only --ignore-watch node_module src/server.ts"
+  }
+}
