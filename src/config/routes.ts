@@ -1,5 +1,6 @@
 import express, { Router } from 'express'
 import UserController from '../controllers/UserController'
+import Auth from '../middlewares/Auth'
 
 class Routes {
   private router: Router;
@@ -16,8 +17,8 @@ class Routes {
   }
 
   private loadRoutesForUsers() {
-    this.router.post('/users', UserController.create);
-    this.router.get('/users/:id', UserController.show);
+    this.router.post('/users', Auth.verify, UserController.create);
+    this.router.get('/users/:id', Auth.verify, UserController.show);
   }
 }
 

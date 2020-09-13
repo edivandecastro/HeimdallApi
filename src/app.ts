@@ -4,13 +4,17 @@ import Database from './config/database'
 import Routes from './config/routes'
 
 class App {
-  public express: express.Application
+  private express: express.Application
 
   public constructor () {
     this.express = express()
     this.database()
     this.middlewares()
     this.routes()
+  }
+
+  public init (): express.Application {
+    return this.express
   }
 
   private middlewares (): void {
@@ -27,4 +31,4 @@ class App {
   }
 }
 
-export default new App().express
+export default new App().init()

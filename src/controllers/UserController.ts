@@ -10,12 +10,12 @@ class UserController {
         let reason = err.errmsg
 
         if (err.code == "11000")
-          reason = "Username already exists!";
+          reason = "Usuário já existe!";
 
-        res.status(400).send({ "message": "There was an error registering the user!", "reason": reason });
+        res.status(400).send({ "message": "Ocorreu um erro ao registrar o usuário!", "reason": reason });
       }
       else {
-        res.status(200).send({ "message": "User registered with success!", user_id: user.id });
+        res.status(200).send({ "message": "Usuário registrado com sucesso!", user_id: user.id });
       }
     });
   }
