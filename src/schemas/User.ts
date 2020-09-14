@@ -1,8 +1,11 @@
 import { Schema, model, Document } from 'mongoose'
 import bcrypt from 'bcryptjs'
 
-interface IUserSchema extends Document {
-  password: String
+export interface IUserSchema extends Document {
+  username: string,
+  password: string,
+  createdAt: Date,
+  updatedAt: Date
 }
 
 const UserSchema = new Schema({
@@ -26,12 +29,11 @@ const UserSchema = new Schema({
 );
 
 UserSchema.pre<IUserSchema>('save', async function (next) {
-  let salt = bcrypt.genSaltSync(10)
-  const password: string = this.password as string
-  let hash = bcrypt.hashSync(password, salt)
+  const salt = bcrypt.genSaltSync(10)
+  const hash = bcrypt.hashSync(this.password, salt)
   this.password = hash
 
   next()
 })
 
-export default model('User', UserSchema)
+export default model<IUserSchema>('User', UserSchema)

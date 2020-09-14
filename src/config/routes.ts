@@ -17,7 +17,7 @@ class Routes {
   }
 
   private loadRoutesForUsers() {
-    this.router.post('/users', Auth.verify, UserController.create);
+    this.router.post('/users',  UserController.create);
     this.router.get('/users/:id', Auth.verify, UserController.show);
   }
 }

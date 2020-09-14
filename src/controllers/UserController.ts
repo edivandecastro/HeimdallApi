@@ -1,11 +1,11 @@
 import { Request, Response } from 'express'
-import User from '../schemas/User'
+import User, { IUserSchema } from '../schemas/User'
 
 class UserController {
   public async create(req: Request, res: Response) {
     let { user } = req.body;
 
-    await User.create(user, (err: any, user: any) => {
+    await User.create(user, (err: any, user: IUserSchema) => {
       if (err) {
         let reason = err.errmsg
 
