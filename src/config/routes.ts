@@ -1,5 +1,6 @@
 import express, { Router } from 'express'
 import UserController from '../controllers/UserController'
+import RuleController from '../controllers/RuleController'
 import Auth from '../middlewares/Auth'
 
 class Routes {
@@ -13,12 +14,23 @@ class Routes {
 
   public load(): Router {
     this.loadRoutesForUsers()
+    this.loadRoutesForRules()
     return this.router;
   }
 
   private loadRoutesForUsers() {
-    this.router.post('/users',  UserController.create);
-    this.router.get('/users/:id', Auth.verify, UserController.show);
+    this.router.post('/users', Auth.verify, UserController.create)
+    this.router.get('/users/:id', Auth.verify, UserController.show)
+  }
+
+  private loadRoutesForRules() {
+    this.router.post('/rules', Auth.verify, RuleController.create)
+    this.router.delete('/rules/:id', Auth.verify, RuleController.destroy)
+    this.router.delete('/rules/:id/action/:action', Auth.verify, RuleController.destroyAction)
+    this.router.get('/rules/:id/action/:action', Auth.verify, RuleController.addAction)
+    this.router.get('/rules/:id', Auth.verify, RuleController.show)
+    this.router.put('/rules/:id', Auth.verify, RuleController.update)
+    this.router.put('/rules', Auth.verify, RuleController.updateByUserAndResource)
   }
 }
 
