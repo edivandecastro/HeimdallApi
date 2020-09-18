@@ -1,4 +1,5 @@
 import express, { Router } from 'express'
+import SessionController from '../controllers/SessionController'
 import UserController from '../controllers/UserController'
 import RuleController from '../controllers/RuleController'
 import Auth from '../middlewares/Auth'
@@ -15,6 +16,7 @@ class Routes {
   public load(): Router {
     this.loadRoutesForUsers()
     this.loadRoutesForRules()
+    this.loadRoutesForSession()
     return this.router;
   }
 
@@ -31,6 +33,11 @@ class Routes {
     this.router.get('/rules/:id', Auth.verify, RuleController.show)
     this.router.put('/rules/:id', Auth.verify, RuleController.update)
     this.router.put('/rules', Auth.verify, RuleController.updateByUserAndResource)
+  }
+
+  private loadRoutesForSession() {
+    this.router.post('/authenticate', SessionController.authenticate);
+    this.router.get('/authenticate/validate', Auth.verify, SessionController.tokenValidate);
   }
 }
 

@@ -5,7 +5,6 @@ import User from '../schemas/User'
 class RuleController {
   public async create(req: Request, res: Response) {
     const { rule } = req.body;
-    console.log(req.body);
 
     await User.findById(rule.user_id, (err, user) => {
       if (user) {
