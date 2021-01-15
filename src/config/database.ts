@@ -14,7 +14,11 @@ export default class Database {
   }
 
   public connectMongoBD(): void {
-    mongoose.connect('mongodb+srv://omnistack:omnistack@omnistack-hfiub.mongodb.net/heimdall?retryWrites=true&w=majority', this.configMongoose);
-    // mongoose.connect('mongodb://localhost:27017/heimdall', this.configMongoose);
+    // mongoose.connect('mongodb+srv://omnistack:omnistack@omnistack-hfiub.mongodb.net/heimdall?retryWrites=true&w=majority', this.configMongoose);
+    mongoose.connect('mongodb://localhost:27017/heimdall', this.configMongoose);
+  }
+
+  public disconnectMongoDB(): void {
+    mongoose.disconnect()
   }
 }
