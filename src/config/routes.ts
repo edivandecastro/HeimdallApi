@@ -27,10 +27,12 @@ class Routes {
 
   private loadRoutesForRules() {
     this.router.post('/rules', Auth.verify, RuleController.create)
+    this.router.post('/rules/authorize', Auth.verify, RuleController.authorize)
     this.router.delete('/rules/:id', Auth.verify, RuleController.destroy)
     this.router.delete('/rules/:id/action/:action', Auth.verify, RuleController.destroyAction)
     this.router.get('/rules/:id/action/:action', Auth.verify, RuleController.addAction)
     this.router.get('/rules/:id', Auth.verify, RuleController.show)
+    this.router.get('/rules/user/:user_id', Auth.verify, RuleController.showRulesOfUser)
     this.router.put('/rules/:id', Auth.verify, RuleController.update)
     this.router.put('/rules', Auth.verify, RuleController.updateByUserAndResource)
   }
