@@ -62,15 +62,21 @@ class RuleController {
   }
 
   public async showRulesOfUser(req: Request, res: Response) {
-    const { id } = req.params
+    const { user_id } = req.params
 
-    const rules = await Rule.find({ user_id: id });
+    let rules
+
+    try {
+      rules = await Rule.find({ user_id });
+    } catch (error) {
+      res.status(404).send({ message: "Não existe regras definidas para este usuário" });
+    }
 
     if (rules && rules.length > 0) {
       res.status(200).send({ rules });
     }
     else {
-      res.status(404).send({ message: "There are no rules for this user" });
+      res.status(404).send({ message: "Não existe regras definidas para este usuário" });
     }
   }
 
@@ -164,13 +170,18 @@ class RuleController {
   }
 
   public async authorize(req: Request, res: Response) {
-    const { user_id, resource, action } = req.body;
+    const { user_id, resource, action } = req.body.rule;
 
     Rule.find({ user_id, resource, actions: action }, (err, rule) => {
-      if (rule.length > 0)
-        res.status(200).send({ access: true });
-      else
-        res.status(401).send({ access: false });
+      if(err) {
+        res.status(400).send({ message: "Id do usuário inválido" });
+      }
+      else {
+        if (rule.length > 0)
+          res.status(200).send({ access: true });
+        else
+          res.status(401).send({ access: false });
+      }
     });
   }
 }
