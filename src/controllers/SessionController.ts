@@ -10,11 +10,8 @@ class SessionController {
 
     const user = await User.findOne({ username }).select('+password');
 
-    if (!user)
-      return res.status(404).send({ error: "User not found!" });
-
-    if (!await bcrypt.compare(password, user.password))
-      return res.status(400).send({ error: "Invalid password!" });
+    if (!user || !await bcrypt.compare(password, user.password))
+      return res.status(400).send({ error: "Usuário ou senha inválidos" });
 
     user.password = undefined;
 
