@@ -22,7 +22,7 @@ class Auth {
     jwt.verify(token, authConfig.secret, (err: any, decoded: any) => {
       if (err) return res.status(401).send({ error: 'Token expirado' });
 
-      req.userId = decoded.id;
+      req.params.userId = decoded.sub;
 
       return next();
     });

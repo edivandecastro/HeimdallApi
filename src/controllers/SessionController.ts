@@ -29,7 +29,7 @@ class SessionController {
   }
 
   public async tokenValidate(req: Request, res: Response) {
-    res.send({ "success" : "Token válido" });
+    res.send({ "success" : "Token válido", "sub": req.params.userId });
   }
 }
 
