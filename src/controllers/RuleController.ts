@@ -180,7 +180,7 @@ class RuleController {
         if (rule.length > 0)
           res.status(200).send({ access: true });
         else
-          res.status(200).send({ access: false });
+          res.status(401).send({ access: false });
       }
     });
   }
